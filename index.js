@@ -137,6 +137,7 @@ console.log("Testing makePersonObject() function passing in '51780, Peter Wood, 
 console.log(makePersonObject(51780, 'Peter Wood', 'peters_email@peters_domain.com'));
 console.log("Testing makePersonObject() function passing in '3549, Guy Fieri, tripleD&food_network.net' below");
 console.log(makePersonObject(3549, 'Guy Fieri', 'tripleD&food_network.net'));
+console.log("For extra credit, see what you get when you convert Guy's ID number above from Decimal to Hex.");
 
 /**
  * ### Challenge `getName`
@@ -157,7 +158,9 @@ function getName(enteredUser) {
 }
 
 const user = {
-  name: 'Dave'
+  id: 1313,
+  name: 'Dave',
+  email: 'dave@fx_network.com'
 };
 console.log("Testing getName() function passing in 'Dave' via 'user' object below");
 console.log(getName(user));
@@ -178,9 +181,24 @@ console.log(getName(user));
  * passing in [ 'orange', 'grape', 'apple', 'banana', 'mango' ] as the argument,
  * the returned value should be: 2.
 */
-function appleIndex(/* code here */) {
-  /* code here */
+function appleIndex(edibles) {
+  let i = 0; // Initialized to the start of any array
+  let foundPosition = false;
+  while((i < edibles.length) && (!foundPosition)) {
+    if(edibles[i] === 'apple') foundPosition = true;
+    if(!foundPosition) i++;
+  }
+  //Loop ends when 'apple' is found or when i = edibles.length if not found
+  if(i < edibles.length) {
+    return i;
+  } else {
+    return "'apple' was not found"
+  }
 }
+
+const fruits = ['orange', 'grape', 'apple', 'banana', 'mango'];
+console.log("Testing appleIndex() function passing in 'fruits' array to get position of 'apple' below");
+console.log(appleIndex(fruits));
 
 /**
  * ### Challenge `isItAnApple`
@@ -197,9 +215,22 @@ function appleIndex(/* code here */) {
  * passing in [ 'orange', 'apple', 'banana', 'apples', 'apple', 'mango' ] as the argument,
  * the returned value should be: [ false, true, false, false, true, false ].
 */
-function isItAnApple(/* code here */) {
-  /* code here */
+function isItAnApple(blindTest) {
+  let blindResults = [];
+
+  for(let i = 0; i < blindTest.length; i++) {
+    if(blindTest[i] === 'apple') {
+      blindResults.push(true);
+    } else {
+      blindResults.push(false);
+    }
+  }
+
+  return blindResults;
 }
+const fruitList = ['orange', 'apple', 'banana', 'apples', 'apple', 'mango'];
+console.log("Testing isItAnApple() function below");
+console.log(isItAnApple(fruitList));
 
 
 
@@ -227,7 +258,7 @@ var inventory = [
 
 // Data from file 
 //var data = require('data./inventory.js');
-/*module.exports = [
+var inventory = [
   { id: 1, car_make: "Lincoln", car_model: "Navigator", car_year: 2009 },
   { id: 2, car_make: "Mazda", car_model: "Miata MX-5", car_year: 2001 },
   { id: 3, car_make: "Land Rover", car_model: "Defender Ice Edition", car_year: 2010 },
@@ -278,7 +309,7 @@ var inventory = [
   { id: 48, car_make: "Dodge", car_model: "Magnum", car_year: 2008 },
   { id: 49, car_make: "Chrysler", car_model: "Sebring", car_year: 1996 },
   { id: 50, car_make: "Lincoln", car_model: "Town Car", car_year: 1999 }
-]*/
+];
 
 
 /**
@@ -289,11 +320,16 @@ var inventory = [
   * 
   *
   * NOTE: This example has been completed for you.
+  * You say that like it's true. I'm going to fix something.
+  * There. I moved the placement of ${the3rd.car_model} so the resulting sentence makes sense.
 **/
 function get3rdCar(inventory) {
   const the3rd = inventory[2];
-  return `The is a ${the3rd.car_make} ${the3rd.car_model}`
+  return `The ${the3rd.car_model} is a ${the3rd.car_make}`;
 }
+console.log("Testing get3rdCar() function (after fixing it) below:");
+console.log(get3rdCar(inventory));
+console.log("I think the above sentence makes more sense than the one in the comments.");
 
 // 👇 COMPLETE YOUR WORK BELOW 👇
 // 👇 COMPLETE YOUR WORK BELOW 👇
@@ -312,9 +348,13 @@ function get3rdCar(inventory) {
  * For example, if getCarInfoByIndex is invoked with the inventory and the number 0,
  * it will return `This is a Lincoln Navigator`.
 */
-function getCarInfoByIndex(inventory, index) {
-  /* code here */
+function getCarInfoByIndex(carList, index) {
+  const retrievedCar = carList[index];
+
+  return `This is a ${retrievedCar.car_make} ${retrievedCar.car_model}`;
 }
+console.log("Testing getCarInfoByIndex() function for the 21st car below");
+console.log(getCarInfoByIndex(inventory, 21));
 
 /**
  * ### Challenge `getLastCarInfo`
@@ -327,9 +367,13 @@ function getCarInfoByIndex(inventory, index) {
  * For example, if getLastCarInfo is invoked passing the inventory inside /data/inventory.js,
  * it will return `This is a Lincoln Town Car`.
 */
-function getLastCarInfo(/* code here */) {
-  /* code here */
+function getLastCarInfo(carList) {
+  const lastCar = carList[carList.length - 1];
+
+  return `This is a ${lastCar.car_make} ${lastCar.car_model}`;
 }
+console.log("Testing getLastCarInfo() function below");
+console.log(getLastCarInfo(inventory));
 
 /**
  * ### Challenge `getModelYears`
@@ -340,9 +384,17 @@ function getLastCarInfo(/* code here */) {
  *     (1) an array which is an inventory of cars like the one inside /data/inventory.js.
  * getModelYears returns an array containing all the 'car_year's in the inventory.
 */
-function getModelYears(/* code here */) {
-  /* code here */
+function getModelYears(carList) {
+  let carYears = [];
+
+  for(let i = 0; i < carList.length; i++) {
+    carYears.push(carList[i].car_year);
+  }
+
+  return carYears;
 }
+console.log("Testing getModelYears() function below");
+console.log(getModelYears(inventory));
 
 /**
  * ### Challenge `getCarInfoById`
@@ -358,9 +410,25 @@ function getModelYears(/* code here */) {
  * For example, if getCarInfoById is invoked with the inventory and the number 1,
  * it will return `This is a Lincoln Navigator`.
 */
-function getCarInfoById(/* code here */) {
-  /* code here */
+function getCarInfoById(carList, idNum) {
+  let i = 0;
+  let foundID = false;
+
+  while((i < carList.length) && (!foundID)) {
+    if(carList[i].id === idNum) foundID = true;
+    if(!foundID) i++;
+  }
+  //while-loops ends when id is found or when i = carList.length if not found
+  if(foundID) {
+    return `This is a ${carList[i].car_make} ${carList[i].car_model}`;
+  } else {
+    return "Unable to find ID: " + idNum + " in inventory";
+  }
 }
+console.log("Testing getCarInfoById() function for id '34' below");
+console.log(getCarInfoById(inventory, 34));
+console.log("Testing getCarInfoById() function for id '52' below");
+console.log(getCarInfoById(inventory, 52));
 
 /**
  * ### Challenge `getOlderCars`
@@ -376,9 +444,20 @@ function getCarInfoById(/* code here */) {
  * with a `car_year` which is at most the given desired max year,
  * in the same order as they appear in the original inventory.
 */
-function getOlderCars(/* code here */) {
-  /* code here */
+function getOlderCars(carList, maxYear) {
+  let augmentedCarList = [];
+
+  for(let i = 0; i < carList.length; i++) {
+    if(carList[i].car_year <= maxYear) {
+      //Storing the entire car object in the array below
+      augmentedCarList.push(carList[i]);
+    }
+  }
+
+  return augmentedCarList;
 }
+console.log("Testing getOlderCars() function for a max year of 1997 below");
+console.log(getOlderCars(inventory, 1997));
 
 /**
  * ### Challenge `getGermanCars`
@@ -393,9 +472,20 @@ function getOlderCars(/* code here */) {
  * made by either `Audi` or `Mercedes-Benz` or `Volkswagen` or `BMW`,
  * in the same order as they appear in the original inventory.
 */
-function getGermanCars(/* code here */) {
-  /* code here */
+function getGermanCars(carList) {
+  let germanCars = [];
+
+  for(let i = 0; i < carList.length; i++) {
+    if((carList[i].car_make === 'Audi') || (carList[i].car_make === 'Mercedes-Benz') || (carList[i].car_make === 'Volkswagen') || (carList[i].car_make === 'BMW')) {
+      //Storing the entire car object in the array below
+      germanCars.push(carList[i]);
+    }
+  }
+
+  return germanCars;
 }
+console.log("Testing getGermanCars() function below");
+console.log(getGermanCars(inventory));
 
 /**
  * ### Challenge `carMaker`
@@ -410,7 +500,31 @@ function getGermanCars(/* code here */) {
  *         (1) causes the odometer in the object to be increased by the distance,
  *         (2) returns the updated value of the `odometer`.
 */
-function carMaker(/* code here */) {
-  /* code here */
-}
+function carMaker(meter) {
+  let drivenCar = {
+    odometer: meter,
+    drive: function(distance) {
+      drivenCar.odometer += distance;
+      return `${drivenCar.odometer}`;
+    }
+  };
 
+  return drivenCar;
+}
+console.log("Stretch: Testing carMaker(35000) below");
+console.log(carMaker(35000));
+
+
+function carMaker2(meter) {
+  let drivenCar = {
+    odometer: meter,
+    drive: function(distance) {
+      drivenCar.odometer += distance;
+      return `${drivenCar.odometer}`;
+    }
+  };
+
+  return `${drivenCar.drive(756)}`;
+}
+console.log("Stretch: Testing carMaker2(35000) and with a driven amount of 756 miles below");
+console.log(carMaker2(35000));
